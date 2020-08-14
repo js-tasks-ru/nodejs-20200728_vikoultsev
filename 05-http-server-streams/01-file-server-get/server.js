@@ -23,7 +23,8 @@ server.on('request', (req, res) => {
         if (!err) {
           fs.createReadStream(filepath)
               .on('error', (err) => {
-                console.log(err);
+                res.statusCode = 500;
+                res.end('Internal server error');
               })
               .pipe(res);
         } else {
@@ -35,7 +36,7 @@ server.on('request', (req, res) => {
       break;
 
     default:
-      res.statusCode = 500;
+      res.statusCode = 501;
       res.end('Not implemented');
   }
 });

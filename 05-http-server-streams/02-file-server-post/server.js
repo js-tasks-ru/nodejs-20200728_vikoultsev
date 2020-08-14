@@ -33,7 +33,6 @@ server.on('request', (req, res) => {
 
           const writeStream = fs.createWriteStream(filepath, {flags: 'wx'})
               .on('error', (err) => {
-                console.log(err);
                 res.statusCode = 500;
                 res.end('Internal server error');
               })
@@ -44,7 +43,6 @@ server.on('request', (req, res) => {
 
           const limitStream = new LimitSizeStream({limit: 1000000});
           limitStream.on('error', (error) => {
-            console.log(error);
             if (error.code === 'LIMIT_EXCEEDED') {
               res.statusCode = 413;
               res.end('Limit exceeded!');
